@@ -77,32 +77,18 @@ def nueva_anotacion(request,plantel_id):
       return render(request,'sitio/anotacion1.html',{'form':form})
   else:#si la peticion es GET
     form=AnotacionForm()
-<<<<<<< HEAD
-    return render(request,'sitio/anotacion1.html',{'form':form,'plantel':plantel_id})
-=======
-    #raise()
     return render(request,'sitio/anotacion1.html',{'form':form,'plantel':p})
->>>>>>> 265a4a7a1524d0c1335caeb010ba3822a0435132
 
 def anotacion(request):
   request.next='criadero/postura'
   if request.user.is_authenticated:
     hoy=Fecha.objects.get_or_create(fecha=datetime.date.today())[0]
-<<<<<<< HEAD
-    planteles=Plantel.objects.filter(es_activo=True).order_by('-nacimiento')
     registros=hoy.anotacion_set.all()
     regs={}
     for galpon in Galpon.objects.filter(produccion=True):
-      reg_plantel={}
-      for plantel in planteles.filter(galpon=galpon):
-=======
-    registros=hoy.anotacion_set.all()
-    regs={}
-    for galpon in Galpon.objects.filter(produccion=True):
-      planteles=Plantel.objects.filter(es_activo=True).filter(galpon=galpon).order_by('-nacimiento')
+      planteles=Plantel.objects.filter(es_activo=True).filter(galpon=galpon).order_by('nacimiento')
       reg_plantel={}
       for plantel in planteles:
->>>>>>> 265a4a7a1524d0c1335caeb010ba3822a0435132
         postura=0
         muertes=0
         anotadas=registros.filter(plantel=plantel)
@@ -114,12 +100,7 @@ def anotacion(request):
             muertes+=registro.muertes
         reg_plantel[plantel]=(postura,muertes,registro)
       regs[galpon]=reg_plantel
-<<<<<<< HEAD
-  
-    #regs={galpon:{plantel=(postura,muertes,form),...},...}
-      
-=======
->>>>>>> 265a4a7a1524d0c1335caeb010ba3822a0435132
+
     return render(request,'sitio/anotacion.html',{'registros':regs,})
   else:
         return HttpResponseRedirect('/cuentas/login')
