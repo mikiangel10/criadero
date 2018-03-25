@@ -1,2 +1,2 @@
 #ignoramos la base de datos
-*.sqlite3
+db.sqlite3
