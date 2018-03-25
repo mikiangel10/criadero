@@ -6,10 +6,19 @@
   Anotacion
 {%endblock%}
 {%block content%}
+<<<<<<< HEAD
 <h3>{{plantel_id}}</h3>
     <form method='POST' class='form'>  {%csrf_token%}
       {{form.as_p}}
       <input type='submit' name='Enviar' value="Enviar"></input>
       <input type='submit' name='{{plantel_id}}' value= 'Enviar y continuar'></input>
+=======
+<h3 class="galpon">{{plantel.galpon}}</h3>
+<h3 class="plantel">{{plantel.nombre}}</h3>
+    <form method='POST' class='form'>  {%csrf_token%}
+      {{form.as_p}}
+      <input type='submit' name='Enviar' value="Enviar"></input>
+      <input type='submit' name='{{plantel.pk}}' value= 'Enviar y continuar'></input>
+>>>>>>> 265a4a7a1524d0c1335caeb010ba3822a0435132
    </form>
 {%endblock%}
