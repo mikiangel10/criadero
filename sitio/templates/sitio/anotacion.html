@@ -1,9 +1,15 @@
-<!DOCTYPE HTML>
-<html>
-  <head>
-  </head>
-  </body>
-    {%for  galpon,planteles in registros.items%}
+{% extends "./base.html" %}
+
+{% block title %}
+Posturas
+{% endblock %}
+
+{% block header %}
+POSTURAS
+{% endblock %}
+
+{% block content %}
+ {%for  galpon,planteles in registros.items%}
     <fieldset>
     <legend>{{galpon}}</legend>
       {%for plantel,reg  in planteles.items%}
@@ -17,6 +23,4 @@
       </fieldset>
     {%endfor%}
 
-  </body>
-</html>
-
+{% endblock %}

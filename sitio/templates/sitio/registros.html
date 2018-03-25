@@ -1,6 +1,14 @@
+{% extends "./base.html" %}
 
-<h1>POSTURAS</h1>
+{% block title %}
+Posturas
+{% endblock %}
 
+{% block header %}
+Posturas
+{% endblock %}
+
+{% block content %}
 {% for galpon,planteles in galpones.items %}
 <h3>{{galpon}}</h3>
 <table cellspacing="3cm", border width='60%' >  
@@ -8,18 +16,19 @@
     <td></td>
     {% for plantel in planteles %}
       <td >{{plantel}}</td>
-    {%endfor%}
+    {% endfor %}
   </tr>    
   {% for fecha,dict in posturas.items %}
     <tr>  
       <td>{{fecha}}</td>
-      {%for plantel,postura in dict.items%}
-        {%if plantel in planteles%}
+      {% for plantel,postura in dict.items %}
+        {% if plantel in planteles %}
           <td align='right'>{{postura}}</td>
-        {%endif%}
-      {%endfor%}
+        {% endif %}
+      {% endfor %}
     </tr>
     
-  {%endfor%}
+  {% endfor %}
 </table>
-{%endfor%}
+{% endfor %}
+{% endblock %}

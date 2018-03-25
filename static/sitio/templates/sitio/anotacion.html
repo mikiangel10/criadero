@@ -1,0 +1,26 @@
+{% extends "./base.html" %}
+
+{% block title %}
+Posturas
+{% endblock %}
+
+{% block header %}
+<h1>POSTURAS</h1>
+{% endblock %}
+
+{% block content %}
+ {%for  galpon,planteles in registros.items%}
+    <fieldset>
+    <legend>{{galpon}}</legend>
+      {%for plantel,reg  in planteles.items%}
+       <a href='anotar/{{plantel.id}}'>{{plantel}}</a>
+           {% if reg.0 >= 1 or reg.1 >= 1 %}
+            <p>Hoy se anotaron {{reg.0}} maples y {{reg.1}} muertas</p>
+          {%else%}
+            <p>No se hicieron anotaciones hoy.</p>
+          {%endif%}
+      {%endfor%}
+      </fieldset>
+    {%endfor%}
+
+{% endblock %}
