@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponseRedirect
+from django.contrib.auth.models import User
 from .forms import AnotacionForm#,myAnotacionForm
 from django.forms import formset_factory
 from sitio.models import Plantel, Galpon,Color,Anotacion,Fecha
@@ -43,16 +44,16 @@ def nueva_anotacion(request,plantel_id):
   hoy=datetime.date.today()
   usuario=request.user
   p=Plantel.objects.get(pk=plantel_id)
-  if request.method=='POST':
+  if request.method=='POST':#si la peticion viene de una anotacion
     form=AnotacionForm(request.POST)
-    if form.is_valid():
+    if form.is_valid(): #si el formulario esta correctamente relleno
       hoy=Fecha.objects.get_or_create(fecha=hoy)[0]
-      anotado=Anotacion.objects.filter(fecha=hoy.id, plantel=p)
+      anotado=Anotacion.objects.filter(fecha=hoy.id, plantel=p)#busca anotaciones anteriores mismo dia y mismo plantel
       com=form.cleaned_data['comentario']
       post=form.cleaned_data['postura']
       muer=form.cleaned_data['muertes']
       hora=datetime.datetime.now().time()
-      if anotado:
+      if anotado: #si hay anotaciones anteriores
         anotado=anotado.first()         
         anotado.postura+=post
         anotado.muertes+=muer
@@ -60,40 +61,51 @@ def nueva_anotacion(request,plantel_id):
         anotado.hora=hora
         anotado.save()
 
-      else:
+      else: #si no hay anotaciones anteriores
         anotado=Anotacion.objects.create(plantel=p,usuario=usuario, fecha=hoy,comentario=com,muertes=muer,postura=post,hora=hora)
-    #  raise()
-      return HttpResponseRedirect('/postura/')
-    else:
+      if 'Enviar' in request.POST: #si se uso el boton enviar      
+        return HttpResponseRedirect('/criadero/postura/')
+      else:   #si se uso el boton enviar y continuar
+        pr=p.proximo()
+        #raise()
+        #plantel_id=Plantel.objects.filter(es_activo=True)
+        if pr!=None:
+          return HttpResponseRedirect('/criadero/postura/anotar/'+str(pr.pk),{'plantel':pr})
+        else:
+          return  HttpResponseRedirect('/criadero/postura/')
+    else:#si el formulario no es valido
       return render(request,'sitio/anotacion1.html',{'form':form})
-  else:
+  else:#si la peticion es GET
     form=AnotacionForm()
-    return render(request,'sitio/anotacion1.html',{'form':form})
+    return render(request,'sitio/anotacion1.html',{'form':form,'plantel':plantel_id})
 
 def anotacion(request):
-  hoy=Fecha.objects.get_or_create(fecha=datetime.date.today())[0]
-  planteles=Plantel.objects.filter(es_activo=True)
-  registros=hoy.anotacion_set.all()
-  regs={}
-  for galpon in Galpon.objects.filter(produccion=True):
-    reg_plantel={}
-    for plantel in planteles.filter(galpon=galpon):
-      postura=0
-      muertes=0
-      anotadas=registros.filter(plantel=plantel)
-      if anotadas.count()==0:
-        registro={postura:0,muertes:0}
-      else:
-        for registro in anotadas:
-          postura+=registro.postura
-          muertes+=registro.muertes
-      reg_plantel[plantel]=(postura,muertes,registro)
-    regs[galpon]=reg_plantel
-
-  #regs={galpon:{plantel=(postura,muertes,form),...},...}
-    
-  else:
+  request.next='criadero/postura'
+  if request.user.is_authenticated:
+    hoy=Fecha.objects.get_or_create(fecha=datetime.date.today())[0]
+    planteles=Plantel.objects.filter(es_activo=True).order_by('-nacimiento')
+    registros=hoy.anotacion_set.all()
+    regs={}
+    for galpon in Galpon.objects.filter(produccion=True):
+      reg_plantel={}
+      for plantel in planteles.filter(galpon=galpon):
+        postura=0
+        muertes=0
+        anotadas=registros.filter(plantel=plantel)
+        if anotadas.count()==0:
+          registro={postura:0,muertes:0}
+        else:
+          for registro in anotadas:
+            postura+=registro.postura
+            muertes+=registro.muertes
+        reg_plantel[plantel]=(postura,muertes,registro)
+      regs[galpon]=reg_plantel
+  
+    #regs={galpon:{plantel=(postura,muertes,form),...},...}
+      
     return render(request,'sitio/anotacion.html',{'registros':regs,})
+  else:
+        return HttpResponseRedirect('/cuentas/login')
   
 
 
@@ -129,6 +141,8 @@ def actualizar_desde_archivo(request):
       else:
         registros[fecha][0]+=int(partes[3])      
   return render(request,'sitio/copiados.html',{'registros':registros})
+
+
     
 
   

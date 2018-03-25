@@ -1,13 +1,15 @@
-{% load staticfiles %}
-<!DOCTYPE HTML>
-<html>
-  <head>
-    <link rel="stylesheet" href= "{% static 'css/style.css' %}">
-  </head>
-  <body>
+{% extends "./base.html" %}
+{%block title%}
+  Anotacion
+{%endblock%}
+{%block header%}
+  Anotacion
+{%endblock%}
+{%block content%}
+<h3>{{plantel_id}}</h3>
     <form method='POST' class='form'>  {%csrf_token%}
       {{form.as_p}}
-      <input type='submit' value='Enviar'></input>
-    </form>
-  </body>
-</html>
+      <input type='submit' name='Enviar' value="Enviar"></input>
+      <input type='submit' name='{{plantel_id}}' value= 'Enviar y continuar'></input>
+   </form>
+{%endblock%}
