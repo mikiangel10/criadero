@@ -29,7 +29,7 @@ class Plantel(models.Model):
     este=0
     galpones=Galpon.objects.all().order_by('id')
     for galpon in galpones:
-      planteles=galpon.plantel_set.all().filter(es_activo=True).order_by('nacimiento')
+      planteles=galpon.plantel_set.all().filter(es_activo=True).order_by('-nacimiento')
       for plantel in planteles:
         if este:
           return plantel
