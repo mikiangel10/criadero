@@ -24,10 +24,7 @@ SECRET_KEY = '%6xtk=jndl7l7e6#(d8xtb*r3)beumyh7s#=omv=-l%ptj6_ef'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG =True
-
-
-ALLOWED_HOSTS = ['criadero.local','localhost','192.168.0.3','mikiangel.ddns.net','est-mayva.ddns.net','192.168.0.10']
-
+ALLOWED_HOSTS = ['criadero.local','localhost','192.168.0.3']
 
 
 # Application definition
@@ -104,6 +101,5 @@ USE_TZ = True
 
 STATICFILES_DIRS = ( os.path.join(BASE_DIR, "static/"),"/home/miki/django-apps/criadero/"),
 LOGIN_REDIRECT_URL='/criadero/postura'
-LOGOUT_REDIRECT_URL='/'
 STATIC_ROOT=("/home/miki/django-apps/criadero/static/")
 STATIC_URL = '/static/'

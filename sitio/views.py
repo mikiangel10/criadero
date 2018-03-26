@@ -77,7 +77,6 @@ def nueva_anotacion(request,plantel_id):
       return render(request,'sitio/anotacion1.html',{'form':form})
   else:#si la peticion es GET
     form=AnotacionForm()
-    #raise()
     return render(request,'sitio/anotacion1.html',{'form':form,'plantel':p})
 
 def anotacion(request):
@@ -87,7 +86,7 @@ def anotacion(request):
     registros=hoy.anotacion_set.all()
     regs={}
     for galpon in Galpon.objects.filter(produccion=True):
-      planteles=Plantel.objects.filter(es_activo=True).filter(galpon=galpon).order_by('-nacimiento')
+      planteles=Plantel.objects.filter(es_activo=True).filter(galpon=galpon).order_by('nacimiento')
       reg_plantel={}
       for plantel in planteles:
         postura=0
@@ -101,6 +100,7 @@ def anotacion(request):
             muertes+=registro.muertes
         reg_plantel[plantel]=(postura,muertes,registro)
       regs[galpon]=reg_plantel
+
     return render(request,'sitio/anotacion.html',{'registros':regs,})
   else:
         return HttpResponseRedirect('/cuentas/login')
