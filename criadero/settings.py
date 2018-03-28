@@ -104,5 +104,6 @@ USE_TZ = True
 
 STATICFILES_DIRS = ( os.path.join(BASE_DIR, "static/"),"/home/miki/django-apps/criadero/"),
 LOGIN_REDIRECT_URL='/criadero/postura'
+LOGOUT_REDIRECT_URL='/'
 STATIC_ROOT=("/home/miki/django-apps/criadero/static/")
 STATIC_URL = '/static/'
