@@ -40,6 +40,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'sitio',
+  'contabilidad',
+  #'phonenumber_field'
  )
 
 MIDDLEWARE_CLASSES = (

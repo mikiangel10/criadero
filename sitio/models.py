@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime, date
 from django.contrib.auth.models import User
+
 class Galpon(models.Model):
   nombre=models.CharField(max_length=20)
   produccion=models.BooleanField(default=True)
@@ -25,6 +26,7 @@ class Plantel(models.Model):
   galpon=models.ForeignKey(Galpon)
   def __str__(self):
     return self.nombre
+
   def proximo(self,):
     este=0
     galpones=Galpon.objects.all().order_by('id')
