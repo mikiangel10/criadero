@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from .models import Anotacion,Plantel,Galpon,Fecha 
+from .models import Anotacion,Plantel,Galpon,Fecha,Color
 
 class AdminGalpon(admin.ModelAdmin):
   list_display=['nombre']
@@ -15,11 +15,12 @@ class AdminFecha(admin.ModelAdmin):
   list_display=['fecha']
 class AdminPlantel(admin.ModelAdmin):
   list_display=['nombre','color','cantidad','nacimiento']
-
+class AdminColor(admin.ModelAdmin):
+  list_display=['nombre']
 admin.site.register(Anotacion,AdminAnotacion)
 admin.site.register(Fecha,AdminFecha)
 admin.site.register(Plantel,AdminPlantel)
 admin.site.register(Galpon,AdminGalpon)
-
+admin.site.register(Color,AdminColor)
 
   
