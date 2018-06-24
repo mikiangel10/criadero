@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '%6xtk=jndl7l7e6#(d8xtb*r3)beumyh7s#=omv=-l%ptj6_ef'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =True
+DEBUG =False
 
 
 ALLOWED_HOSTS = ['criadero.local','localhost','192.168.0.3','mikiangel.ddns.net','est-mayva.ddns.net','192.168.0.10']
