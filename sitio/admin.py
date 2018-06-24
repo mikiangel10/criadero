@@ -1,10 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 from .models import Anotacion,Plantel,Galpon,Fecha,Color
-<<<<<<< HEAD
 
-=======
->>>>>>> 420b33389db626602ccd6d9e22e817292222c7a0
 class AdminGalpon(admin.ModelAdmin):
   list_display=['nombre']
   def __str__(self):  
@@ -19,12 +16,8 @@ class AdminFecha(admin.ModelAdmin):
 class AdminPlantel(admin.ModelAdmin):
   list_display=['nombre','color','cantidad','nacimiento']
 class AdminColor(admin.ModelAdmin):
-<<<<<<< HEAD
-  list_display=['nombre']
-=======
 	list_display=['nombre']
 
->>>>>>> 420b33389db626602ccd6d9e22e817292222c7a0
 admin.site.register(Anotacion,AdminAnotacion)
 admin.site.register(Fecha,AdminFecha)
 admin.site.register(Plantel,AdminPlantel)
