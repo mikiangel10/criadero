@@ -1,6 +1,10 @@
 #ignoramos la base de datos
 db.sqlite3
 database/
+<<<<<<< HEAD
 databse_git/
+=======
+database_git
+>>>>>>> master
 __pycache__/
 *~
