@@ -5,10 +5,10 @@ from django.contrib.auth.models import User
 from .forms import AnotacionForm#,myAnotacionForm
 from django.forms import formset_factory
 from sitio.models import Plantel, Galpon,Color,Anotacion,Fecha
-import datetime
-
+import datetime, platform
+sistema=platform.dist()
 def inicio(request):
-	return render(request, 'sitio/inicio.html',{})
+	return render(request, 'sitio/inicio.html',{'sistema':sistema})
 
 def planteles(request):
   nombres=Plantel.objects.all()
