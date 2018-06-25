@@ -71,8 +71,11 @@
     <footer>
     <p> Una empresa Familiar</p>
     <p>Zona Rural | Timbúes | Santa Fe | Argentina </p>
-		<p>Hospedad en {{sistema}}</p>
+		{%if user.is_authenticated%}
+		<p>Hospedado en {{sistema}}</p>
+		{%endif%}
 		{%block footer%}
+
 		{%endblock%}
     </footer>
     <script src="{% static "sitio/bootstrap/js/jquery.js" %}"></script>
