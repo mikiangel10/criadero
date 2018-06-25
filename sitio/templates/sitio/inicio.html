@@ -11,3 +11,9 @@
 {% block content %}
 <h3>Bienvenido!</h3>
 {% endblock %}
+
+{% block footer %}
+{% if user.is_authenticated %}
+		<p>Hospedado en {{sistema}} </p>
+		{% endif %}
+{% endblock %}
