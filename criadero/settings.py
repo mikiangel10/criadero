@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '%6xtk=jndl7l7e6#(d8xtb*r3)beumyh7s#=omv=-l%ptj6_ef'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =False
+DEBUG =True
 
 
 ALLOWED_HOSTS = ['criadero.local','localhost','192.168.0.3','mikiangel.ddns.net','est-mayva.ddns.net','192.168.0.10']
@@ -81,8 +81,12 @@ WSGI_APPLICATION = 'criadero.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, './database/db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'criadero',
+				'USER':'criaderopg',
+				'PASSWORD':'12345',
+				'HOST':'localhost',
+				'PORT':'',
     }
 }
 

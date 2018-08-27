@@ -67,5 +67,3 @@ class Contacto(models.Model):
     return self.nombre
   class Meta:
     verbose_name_plural="Contactos"
-
-
